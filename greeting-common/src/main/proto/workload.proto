@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package com.techprimers.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.techprimers.grpc";
+
+service WorkloadService {
+  rpc initBlockchain(WorkloadRequest) returns (WorkloadResponse) {
+  }
+
+  rpc queryAll(WorkloadRequest) returns (WorkloadResponse) {
+  }
+
+  rpc create(WorkloadRequest) returns (WorkloadResponse) {
+  }
+}
+
+message WorkloadRequest {
+  string message = 1;
+}
+
+message WorkloadResponse {
+  string message = 1;
+}
