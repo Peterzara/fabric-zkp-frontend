@@ -1,0 +1,88 @@
+---
+name: "Network-Config-HLF-Sample"
+x-type: "hlfv1"
+
+description: "The network used in hlf-fabric-samples"
+
+version: 1.0.0
+
+client:
+  organization: org1
+
+channels:
+  mychannel:
+    orderers:
+      - orderer1.sample.com
+
+    peers:
+      peer0.org1.sample.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+      peer0.org2.sample.com:
+        endorsingPeer: false
+        chaincodeQuery: false
+        ledgerQuery: true
+        eventSource: true
+
+    chaincodes:
+      - fabcar:1.0
+
+
+organizations:
+  org1:
+    mspid: Org1MSP
+    peers:
+      - peer0.org1.sample.com
+    certificateAuthorities:
+      - ca.sample.com
+  org2:
+    mspid: Org2MSP
+    peers:
+      - peer0.org2.sample.com
+    certificateAuthorities:
+      - ca2.sample.com
+
+
+orderers:
+  orderer1.sample.com:
+    url: grpc://127.0.0.1:57050
+    grpcOptions:
+      hostnameOverride: orderer1.sample.com
+
+
+peers:
+  peer0.org1.sample.com:
+    url: grpc://127.0.0.1:57051
+    eventUrl: grpc://127.0.0.1:57053
+    grpcOptions:
+      hostnameOverride: peer0.org1.sample.com
+
+  peer0.org2.sample.com:
+    url: grpc://127.0.0.1:9051
+    eventUrl: grpc://127.0.0.1:9053
+    grpcOptions:
+      hostnameOverride: peer0.org2.sample.com
+
+
+# "registrar" typically refers to a user who has the ability to register other users on the network
+certificateAuthorities:
+  ca.sample.com:
+    url: http://127.0.0.1:57054
+    registrar:
+      enrollId: admin
+      enrollSecret: adminpw
+    caName: ca.sample.com
+#    tlsCACerts:
+#      path: /Users/panrui/Downloads/hfExperiment/hlf-voting-sample/network/crypto-config/peerOrganizations/org1.sample.com/tlsca/tlsca.org1.sample.com-cert.pem
+
+  ca2.sample.com:
+    url: http://127.0.0.1:58054
+    registrar:
+      enrollId: admin
+      enrollSecret: adminpw
+    caName: ca2.sample.com
+#    tlsCACerts:
+#      path: /Users/panrui/Downloads/hfExperiment/hlf-voting-sample/network/crypto-config/peerOrganizations/org2.sample.com/tlsca/tlsca.org2.sample.com-cert.pem
